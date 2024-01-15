@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cuJhyP3US+vuhhcG/gxymrLF/0PTgFaRx3MrZJRE6DKlbWfNPMaajf5eFQR1v9ZQyidBnq3LuK1J/oBwhUFltQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\vishe\\OneDrive\\Desktop\\Project\\Server\\MultiplayerBackend\\MultiplayerBackend\\MultiplayerBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vishe\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512"
+  ],
+  "logs": []
+}
