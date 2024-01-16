@@ -1,9 +1,11 @@
-﻿namespace MultiplayerBackend.InternalCommunication.Interfaces
+﻿using System.Net.WebSockets;
+
+namespace MultiplayerBackend.InternalCommunication.Interfaces
 {
     public interface IMessageParserService
     {
-        public Task ParseMessage(string Message);
+        public Task ParseMessage(WebSocket webSocket, string message);
 
-        public void PassMessageToService(string Message, IService service);
+        public void PassMessageToService(IService service, string message);
     }
 }

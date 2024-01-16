@@ -1,12 +1,20 @@
-﻿
+﻿using MultiplayerBackend.InternalCommunication.Interfaces;
+using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace MultiplayerBackend.ClientCommunication
+namespace MultiplayerBackend.ClientCommunication.Services
 {
-    public class MessageHandler : IMiddleware
+    public class MessageHandlerService : IMiddleware
     {
+        IMessageParserService messageParserService;
+
+        public MessageHandlerService(IMessageParserService _messageParserService)
+        {
+            messageParserService = _messageParserService;
+        }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -40,7 +48,6 @@ namespace MultiplayerBackend.ClientCommunication
         {
             using (WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync())
             {
-
                 try
                 {
                     await ProcessWebSocketMessages(webSocket);
@@ -61,42 +68,36 @@ namespace MultiplayerBackend.ClientCommunication
 
                 string messageReceived = Encoding.UTF8.GetString(buffer, 0, result.Count);
 
-                
-
-                await messageParserService.MessageParser(messageReceived, webSocket);
+                //await messageParserService.ParseMessage(messageReceived, webSocket);
 
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    await HandleWebSocketClosure(webSocket);
+                    //await HandleWebSocketClosure(webSocket);
                 }
             }
 
-            await HandleWebSocketClosure(webSocket);
+            //await HandleWebSocketClosure(webSocket);
         }
 
-        private async Task HandleWebSocketClosure(WebSocket webSocket, Exception ex = null)
+        private async Task HandleWebSocketClosure(WebSocket webSocket, Exception ex)
         {
-            SendClientLeftMessage(webSocket);
+            //SendClientLeftMessage(webSocket);
 
             if (ex != null)
             {
                 Console.WriteLine($"Exception occurred: {ex.Message}\nStackTrace: {ex.StackTrace}");
             }
 
-            gameManager.clientSockets.TryRemove(webSocket, out _);
+            //all clientSockets.TryRemove(webSocket, out _);
             await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Socket closed", CancellationToken.None);
         }
 
-        private void SendClientLeftMessage(WebSocket webSocket)
-        {
-            if (gameManager.clientSockets.TryGetValue(webSocket, out var clientInfo))
-            {
-                var clientLeftMessage = new ClientLeftMessage { playerID = clientInfo.playerID };
-                var serverMessage = new ServerMessage { type = StringConstants.PlayerLeft, data = clientLeftMessage };
-                string message = JsonConvert.SerializeObject(serverMessage);
-                SendDataToAllClients(message);
-            }
-        }
-
+        //private void SendClientLeftMessage(WebSocket webSocket)
+        //{
+        //    if (clientSockets.TryGetValue(webSocket, out var clientInfo))
+        //    {
+        //        
+        //    }
+        //}
     }
 }
