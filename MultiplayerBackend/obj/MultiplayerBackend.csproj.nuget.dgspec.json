@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vishe\\OneDrive\\Desktop\\Project\\Server\\MultiplayerBackend\\MultiplayerBackend\\MultiplayerBackend.csproj": {}
+    "D:\\Workspace\\Dev\\TheGameServer\\MultiplayerBackend\\MultiplayerBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vishe\\OneDrive\\Desktop\\Project\\Server\\MultiplayerBackend\\MultiplayerBackend\\MultiplayerBackend.csproj": {
+    "D:\\Workspace\\Dev\\TheGameServer\\MultiplayerBackend\\MultiplayerBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vishe\\OneDrive\\Desktop\\Project\\Server\\MultiplayerBackend\\MultiplayerBackend\\MultiplayerBackend.csproj",
+        "projectUniqueName": "D:\\Workspace\\Dev\\TheGameServer\\MultiplayerBackend\\MultiplayerBackend.csproj",
         "projectName": "MultiplayerBackend",
-        "projectPath": "C:\\Users\\vishe\\OneDrive\\Desktop\\Project\\Server\\MultiplayerBackend\\MultiplayerBackend\\MultiplayerBackend.csproj",
+        "projectPath": "D:\\Workspace\\Dev\\TheGameServer\\MultiplayerBackend\\MultiplayerBackend.csproj",
         "packagesPath": "C:\\Users\\vishe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vishe\\OneDrive\\Desktop\\Project\\Server\\MultiplayerBackend\\MultiplayerBackend\\obj\\",
+        "outputPath": "D:\\Workspace\\Dev\\TheGameServer\\MultiplayerBackend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,6 +48,10 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.19.5, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             }
           },
           "imports": [

@@ -1,13 +1,22 @@
-﻿using MultiplayerBackend.ClientCommunication.Interfaces;
+﻿using MultiplayerBackend.CacheServices;
 using Newtonsoft.Json;
 using System.Net.WebSockets;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MultiplayerBackend.ClientCommunication.Services
 {
-    public class WebSocketCommunicationService : ISocketCommunication<WebSocket>
+    public class WebSocketCommunicationService
     {
-        public async Task SendMessageToAClient(WebSocket client, string message)
+        private readonly DataServices _dataServices;
+
+        public WebSocketCommunicationService(DataServices dataServices)
+        {
+            _dataServices = dataServices;
+        }
+
+        public static async Task SendMessageToAClient(WebSocket client, string message)
         {
             try
             {
@@ -17,23 +26,22 @@ namespace MultiplayerBackend.ClientCommunication.Services
             catch (Exception ex)
             {
                 // Log or handle the exception appropriately
-                Console.WriteLine(JsonConvert.SerializeObject(ex.ToString()));
+                Console.WriteLine(JsonConvert.SerializeObject(ex));
             }
         }
 
-        public async Task SendBroadcastMessage(IEnumerable<WebSocket> clients, string message)
+        public async Task SendBroadcastMessage(string message)
         {
-            foreach (var clientSocket in clients)
+            foreach (var clientSocket in _dataServices.GetConnections())
             {
                 try
                 {
                     var buffer = Encoding.UTF8.GetBytes(message);
-                    await clientSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                    await clientSocket.Key.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
                 }
                 catch (Exception ex)
                 {
-                    // Log or handle the exception appropriately
-                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine(JsonConvert.SerializeObject(ex));
                 }
             }
         }
